@@ -1,0 +1,150 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="mx-auto h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center mb-4 hover:scale-105 transition-transform duration-200">
+        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Add Security Key</h1>
+      
+      <!-- User Information -->
+      <div *ngIf="user" class="mb-4">
+        <p class="text-gray-600">Add a new Security Key for:</p>
+        <div class="flex items-center justify-center space-x-3 mt-2">
+          <img
+            class="h-8 w-8 rounded-full ring-2 ring-gray-100"
+            [src]="'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.first_name + ' ' + user.last_name) + '&background=random&color=fff&size=128'"
+            [alt]="user.first_name + ' ' + user.last_name"
+          />
+          <div class="text-left">
+            <p class="font-semibold text-blue-500">{{ user.first_name }} {{ user.last_name }}</p>
+            <p class="text-sm text-gray-500">{{ user.email }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Fallback for when user info is not available -->
+      <p *ngIf="!user && userId" class="text-gray-600">
+        Add a new Security Key for user <span class="font-semibold text-blue-500">{{ userId }}</span>
+      </p>
+      
+      <!-- No user ID provided -->
+      <p *ngIf="!userId" class="text-gray-600">
+        Add a new Security Key to the system
+      </p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 p-8 hover:shadow-xl transition-shadow duration-300">
+      <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        
+        <!-- Security Key UUID Field -->
+        <div>
+          <label for="yubiUUID" class="block text-sm font-medium text-gray-700 mb-2">
+            Security Key UUID <span class="text-red-500">*</span>
+          </label>
+          <div class="relative">
+            <input
+              type="text"
+              id="yubiUUID"
+              formControlName="yubiUUID"
+              placeholder="e.g., 23bbd71d-16c7-471c-898b-00b9fa4d3e22"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-blue-300"
+              [class.border-green-300]="addForm.get('yubiUUID')?.valid && addForm.get('yubiUUID')?.touched"
+              [class.border-red-300]="addForm.get('yubiUUID')?.invalid && addForm.get('yubiUUID')?.touched"
+              [class.shadow-lg]="addForm.get('yubiUUID')?.valid && addForm.get('yubiUUID')?.touched"
+            />
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <svg *ngIf="addForm.get('yubiUUID')?.valid && addForm.get('yubiUUID')?.touched" class="h-5 w-5 text-green-500 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <svg *ngIf="addForm.get('yubiUUID')?.invalid && addForm.get('yubiUUID')?.touched" class="h-5 w-5 text-red-500 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+          <p *ngIf="getErrorMessage('yubiUUID')" class="mt-1 text-sm text-red-600 animate-pulse">
+            {{ getErrorMessage('yubiUUID') }}
+          </p>
+          <p class="mt-1 text-xs text-gray-500">
+            Enter the UUID of your Security Key in standard format
+          </p>
+        </div>
+
+        <!-- Description Field -->
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+            Description (Optional)
+          </label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="e.g., Work Security Key, Personal Security Key"
+            rows="3"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none hover:border-blue-300"
+          ></textarea>
+          <p *ngIf="getErrorMessage('description')" class="mt-1 text-sm text-red-600 animate-pulse">
+            {{ getErrorMessage('description') }}
+          </p>
+          <p class="mt-1 text-xs text-gray-500">
+            Add a description to help identify this Security Key
+          </p>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-lg p-4 animate-pulse">
+          <div class="flex">
+            <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <p class="text-sm text-red-700">{{ errorMessage }}</p>
+          </div>
+        </div>
+
+        <!-- Success Message -->
+        <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-lg p-4 animate-pulse">
+          <div class="flex">
+            <svg class="h-5 w-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <p class="text-sm text-green-700">{{ successMessage }}</p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="isLoading || addForm.invalid"
+          class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-500 hover:shadow-lg hover:-translate-y-0.5"
+        >
+          <div class="flex items-center justify-center">
+            <svg *ngIf="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            {{ isLoading ? 'Adding Security Key...' : 'Add Security Key' }}
+          </div>
+        </button>
+
+        <!-- Cancel Button -->
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="w-full bg-gray-800 text-gray-300 py-3 px-4 rounded-lg font-medium hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+
+    <!-- Help Text -->
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-500">
+        Need help finding your Security Key UUID? 
+        <a href="#" class="text-blue-500 hover:text-blue-600 font-medium transition-colors duration-200 hover:underline">View instructions</a>
+      </p>
+    </div>
+  </div>
+</div>

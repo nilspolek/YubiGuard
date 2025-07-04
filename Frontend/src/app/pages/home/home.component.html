@@ -1,0 +1,254 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="text-center">
+        <!-- Logo and Title -->
+        <div class="flex justify-center mb-8">
+          <div class="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          Welcome to
+          <span class="text-blue-500">YubiGuard</span>
+        </h1>
+        
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          Secure Security Key management system for enterprise environments. 
+          Manage, assign, and monitor hardware security keys with ease.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <button 
+            (click)="navigateToUsers()"
+            class="bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-600 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            Manage Users
+          </button>
+          
+          <button 
+            (click)="navigateToAdd()"
+            class="bg-gray-800 text-gray-300 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-700 hover:text-white transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Add Security Key
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">
+          Why Choose YubiGuard?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Enterprise-grade security management with simplicity and reliability
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="text-center p-8 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-200 hover:shadow-lg">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Secure Authentication</h3>
+          <p class="text-gray-600">
+            Hardware-based security keys provide the highest level of protection against phishing and credential theft.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="text-center p-8 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-200 hover:shadow-lg">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">User Management</h3>
+          <p class="text-gray-600">
+            Easily manage users and their associated Security Keys with our intuitive interface and robust API.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="text-center p-8 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-200 hover:shadow-lg">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Analytics & Monitoring</h3>
+          <p class="text-gray-600">
+            Track usage patterns, monitor security events, and generate comprehensive reports for compliance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Find Section -->
+  <div class="py-24 bg-gradient-to-r from-blue-50 to-indigo-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">
+          Find Your Security Key
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Quickly locate any Security Key in your organization and see who it's assigned to
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- Left Side - Description -->
+            <div>
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Instant Key Lookup</h3>
+              </div>
+              
+              <div class="space-y-4 text-gray-600">
+                <div class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p>Enter any Security Key ID to find its owner</p>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p>View user details and contact information</p>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p>Check key status and last activity</p>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p>Perfect for security audits and key recovery</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side - Search Demo -->
+            <div class="bg-gray-50 rounded-xl p-6">
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3 mb-4">
+                  <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-semibold text-gray-900">Quick Search</h4>
+                </div>
+                
+                <div class="bg-white rounded-lg border border-gray-200 p-4">
+                  <div class="flex items-center space-x-2">
+                    <div class="flex-1">
+                      <input
+                        type="text"
+                        [(ngModel)]="searchTerm"
+                        (keypress)="onSearchKeyPress($event)"
+                        placeholder="Enter Security Key ID..."
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                    <button
+                      (click)="searchFromLanding()"
+                      class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button
+                    (click)="navigateToFindKey()"
+                    class="inline-flex items-center px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    Find Security Key Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="py-16 bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">1000+</div>
+          <div class="text-gray-300">Users Protected</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">5000+</div>
+          <div class="text-gray-300">Security Keys Managed</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">99.9%</div>
+          <div class="text-gray-300">Uptime</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">24/7</div>
+          <div class="text-gray-300">Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="py-12 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex justify-center mb-6">
+        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+      </div>
+      <h3 class="text-2xl font-bold text-white mb-4">YubiGuard</h3>
+      <p class="text-gray-400 mb-6">
+        Enterprise-grade Security Key management for modern organizations
+      </p>
+      <div class="text-gray-500 text-sm">
+        © 2024 YubiGuard. All rights reserved.
+      </div>
+    </div>
+  </div>
+</div>

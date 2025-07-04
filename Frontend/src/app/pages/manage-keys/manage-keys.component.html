@@ -1,0 +1,170 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div class="mb-4 sm:mb-0">
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Manage Security Keys</h1>
+          <p class="text-gray-600">View and manage all Security Keys in the system</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button
+            (click)="refreshData()"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <label for="searchInput" class="block text-sm font-medium text-gray-700 mb-2">
+          Search Security Keys
+        </label>
+        <input
+          type="text"
+          id="searchInput"
+          [(ngModel)]="searchTerm"
+          placeholder="Search by UUID, user name, or email..."
+          class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+        />
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+      <div class="text-center">
+        <svg class="animate-spin h-8 w-8 text-blue-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-gray-500">Loading keys...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage && !isLoading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+      <div class="flex">
+        <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+        </svg>
+        <p class="text-sm text-red-700">{{ errorMessage }}</p>
+      </div>
+      <button
+        (click)="refreshData()"
+        class="mt-3 inline-flex items-center px-3 py-2 border border-red-300 rounded-md text-sm font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200"
+      >
+        Try Again
+      </button>
+    </div>
+
+    <!-- Keys List -->
+    <div *ngIf="!isLoading && !errorMessage" class="space-y-4">
+      <!-- No Results -->
+      <div *ngIf="getFilteredKeys().length === 0" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">No Security Keys Found</h3>
+        <p class="text-gray-600 mb-6">No Security Keys match your search criteria.</p>
+      </div>
+
+      <!-- Key Cards -->
+      <div *ngFor="let item of getFilteredKeys(); trackBy: trackByKey" class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200">
+        <div class="p-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <!-- Key Icon -->
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                </svg>
+              </div>
+
+              <!-- Key Info -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center space-x-2">
+                  <h3 class="text-lg font-semibold text-gray-900 font-mono">
+                    {{ formatKey(item.key) }}
+                  </h3>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    {{ getKeyStatus(item.key) }}
+                  </span>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Security Key UUID</p>
+              </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="text-right">
+              <div class="flex items-center space-x-3">
+                <div class="text-right">
+                  <p class="text-sm font-medium text-gray-900">
+                    {{ item.user.first_name }} {{ item.user.last_name }}
+                  </p>
+                  <p class="text-xs text-gray-500">{{ item.user.email }}</p>
+                  <p class="text-xs text-gray-400 mt-1">User ID: {{ item.user.id }}</p>
+                </div>
+                
+                <!-- User Avatar -->
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-8 w-8 rounded-full ring-2 ring-gray-100"
+                    [src]="'https://ui-avatars.com/api/?name=' + encodeURIComponent(item.user.first_name + ' ' + item.user.last_name) + '&background=random&color=fff&size=128'"
+                    [alt]="item.user.first_name + ' ' + item.user.last_name"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Actions -->
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <span class="text-xs text-gray-500">
+                  Added to user on {{ getCurrentDate() }}
+                </span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
+                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                  </svg>
+                  Edit
+                </button>
+                <button class="inline-flex items-center px-3 py-1 border border-red-300 rounded-md text-xs font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200">
+                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Count -->
+    <div *ngIf="!isLoading && !errorMessage && getFilteredKeys().length > 0" class="mt-6 text-center">
+      <p class="text-sm text-gray-500">
+        Showing {{ getFilteredKeys().length }} of {{ getAllKeys().length }} keys
+        <span *ngIf="searchTerm"> matching "{{ searchTerm }}"</span>
+      </p>
+    </div>
+  </div>
+</div> 
